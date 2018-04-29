@@ -13,7 +13,9 @@
 <script src="src/CanvasDisplay.js"></script>
 <script src="src/GameBits.js"></script>
 <script src="src/levels.js"></script>
-<link rel="css/stylesheet" href="stylesheet.css">
+<script src="src/Status.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Cute+Font" rel="stylesheet">
+<link rel="stylesheet" href="css/stylesheet.css">
 </head>
 <body>
 
@@ -22,7 +24,7 @@
     console.log(`${simpleLevel.width} by ${simpleLevel.height}`)
     let display = new DOMDisplay(document.body, simpleLevel)
     display.setState(State.start(simpleLevel)) */
-    
+    var infoBar = new Status()
     runGame(GAME_LEVELS, CanvasDisplay)
   </script>
 
