@@ -1,9 +1,8 @@
 /* Status bar class for Software Engineering 1b assignment
 Created by Thomas Baines and Kelsey Vavasour */
 
-class Status{
-
-  constructor() {
+class Status { // eslint-disable-line no-unused-vars
+  constructor () {
     this.lives = 3
     this.coins = 0
     this.heartAlive = './img/status_heart_alive.png'
@@ -19,14 +18,12 @@ class Status{
     }
     this.makeImg('Lives', this.heartDead, 4, 'heart')
     this.makeImg('Lives', this.heartDead, 5, 'heart')
-    
-    
-    
+
     this.makeLabel('Coins', 'coinCount', '0')
     this.makeImg('Coins', this.coinSprite, 'coinImage')
   }
-  
-  display() {
+
+  display () {
     // reloads the display to update when something was changed
     this.updateLabel('coinCount', this.coins)
     for (let i = 1; i < 6; i++) {
@@ -36,25 +33,24 @@ class Status{
         this.changeImg(i, this.heartDead)
       }
     }
-    
   }
-  
-  addCoin() {
+
+  addCoin () {
     this.coins++
     this.display()
   }
-  
-  resetCoins() {
+
+  resetCoins () {
     this.coins = 0
     this.display()
   }
-  
-  addLife() {
+
+  addLife () {
     this.lives++
     this.display()
   }
-  
-  looseLife() {
+
+  looseLife () {
     this.lives--
     this.display()
   }
@@ -99,7 +95,7 @@ class Status{
       return this.find(parentID)
     }
   }
-  
+
   makeDiv (myParent, id, className = undefined) {
     let newDiv = document.createElement('div')
     newDiv.setAttribute('id', id)
@@ -107,7 +103,7 @@ class Status{
     let theParent = this.getParent(myParent)
     theParent.appendChild(newDiv)
   }
-  
+
   makeHeader (myParent, headerType, value, id, className = undefined) {
     // this code is hacky and inelegant but case statements throw errors, and trying to make
     // the code smart enought to parse the value its given into h1, h2 and h3
@@ -130,7 +126,7 @@ class Status{
     let theParent = this.getParent(myParent)
     theParent.appendChild(newHeader)
   }
-  
+
   makeLabel (myParent, id, newText, className = undefined) {
     let theLabel = document.createElement('label')
     let labelText = document.createTextNode(newText)
@@ -151,11 +147,10 @@ class Status{
     let theParent = this.getParent(myParent)
     theParent.innerHTML += '&nbsp'
   }
-  
-  
+
   // code from render ends
-  
-  makeImg(myParent, src, id, className = undefined) {
+
+  makeImg (myParent, src, id, className = undefined) {
     // create image element using DOM suite
     let newImg = document.createElement('img')
     newImg.setAttribute('src', src)
@@ -164,17 +159,15 @@ class Status{
     let theParent = this.getParent(myParent)
     theParent.appendChild(newImg)
   }
-  
-  changeImg(id, src) {
+
+  changeImg (id, src) {
     // used to update the image on an element. Primarily to change hearts between Coloured and Grey
     let theImg = this.find(id)
     theImg.setAttribute('src', src)
   }
-  
-  updateLabel(id, newText) {
+
+  updateLabel (id, newText) {
     let theLabel = this.find(id)
     theLabel.innerHTML = newText
   }
-  
-  
 }
