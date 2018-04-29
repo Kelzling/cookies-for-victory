@@ -1,5 +1,8 @@
 /* Status bar class for Software Engineering 1b assignment
-Created by Thomas Baines and Kelsey Vavasour */
+created April 2018
+Created by Thomas Baines and Kelsey Vavasour 
+updated to conform to standard JS 29/04/2018
+*/
 
 class Status { // eslint-disable-line no-unused-vars
   constructor () {
