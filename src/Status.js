@@ -49,13 +49,21 @@ class Status { // eslint-disable-line no-unused-vars
   }
 
   addLife () {
-    this.lives++
-    this.display()
+    if (this.lives < 5) {
+      this.lives++
+      this.display()
+    } else {
+      throw new RangeError('Cannot have more than five lives')
+    }
   }
 
   looseLife () {
-    this.lives--
-    this.display()
+    if (this.lives > 0) {
+      this.lives--
+      this.display()
+    } else {
+      throw new RangeError('Lives cannot be less than 0 - Player should die here')
+    }
   }
 
   // code from render begins
