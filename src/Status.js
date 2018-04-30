@@ -8,6 +8,7 @@ class Status { // eslint-disable-line no-unused-vars
   constructor () {
     this.lives = 3
     this.coins = 0
+    this.levelCoins = [0, 0]
     this.heartAlive = './img/status_heart_alive.png'
     this.heartDead = './img/status_heart_dead.png'
     this.coinSprite = './img/status_coin.png'
@@ -21,15 +22,46 @@ class Status { // eslint-disable-line no-unused-vars
     }
     this.makeImg('Lives', this.heartDead, 4, 'heart')
     this.makeImg('Lives', this.heartDead, 5, 'heart')
-
-    this.makeLabel('Coins', 'coinCount', '0')
-    this.insertNBS('Coins')
-    this.makeImg('Coins', this.coinSprite, 'coinImage')
+    
+    this.makeDiv('Coins', 'levelCoins')
+    this.makeLabel('levelCoins', 'levelLabel', 'Level:', 'statusLabel')
+    this.makeLabel('levelCoins', 'levelCoinCount', '0/0', 'statusLabel')
+    this.insertNBS('levelCoins')
+    this.makeImg('levelCoins', this.coinSprite, 'coin01', 'coinImage')
+    
+    this.makeDiv('Coins', 'Bank')
+    this.makeLabel('Bank', 'bankLabel', 'Bank:', 'statusLabel')
+    this.makeLabel('Bank', 'bankCoinCount', '0', 'statusLabel')
+    this.insertNBS('Bank')
+    this.makeImg('Bank', this.coinSprite, 'coin02', 'coinImage')
+  }
+  
+  vanish() {
+    this.clearByID('body')
+  }
+  
+  setLevelCoins(numCoins) {
+    if (VERBOSE) {
+      console.log(`Number of coins is ${numCoins}`)
+    }
+    if (numCoins > 0) {
+      this.levelCoins = [0, numCoins]
+      this.display()
+    } else if (VERBOSE) {
+      console.warn('Warning! This level has no coins.')
+    }
+  }
+  
+  bank() {
+    this.coins += this.levelCoins[0]
+    this.levelCoins = [0, 0]
+    this.display()
   }
 
   display () {
     // reloads the display to update when something was changed
-    this.updateLabel('coinCount', this.coins)
+    this.updateLabel('levelCoinCount', `${this.levelCoins[0]}/${this.levelCoins[1]}`)
+    this.updateLabel('bankCoinCount', this.coins)
     for (let i = 1; i < 6; i++) {
       if (i <= this.lives) {
         this.changeImg(i, this.heartAlive)
@@ -40,32 +72,45 @@ class Status { // eslint-disable-line no-unused-vars
   }
 
   addCoin () {
-    this.coins++
+    this.levelCoins[0]++
     this.display()
   }
 
   resetCoins () {
     // used when you die properly currently - will be subject to change later 
     this.coins = 0
+    this.levelCoins = [0, 0]
     this.display()
   }
 
   addLife () {
     // 1 UP!
     if (this.lives < 5) {
+      if (VERBOSE) {
+        console.log('1 up!')
+      }
       this.lives++
       this.display()
     } else {
-      throw new RangeError('Cannot have more than five lives')
+      // throw new RangeError('Cannot have more than five lives') // this is bad
+      if (VERBOSE) {
+        console.log('Too many hearts! Heart not added.')
+      }
     }
   }
 
   looseLife () {
     if (this.lives > 1) {
+      if (VERBOSE) {
+        console.log('ow!')
+      }
       this.lives--
       this.display()
       return true // you haven't died totally - have lives left
     } else {
+      if (VERBOSE) {
+        console.log('You died!')
+      }
       this.resetCoins()
       this.resetLives()
       return false // you ran out of lives, go back to the start
@@ -96,8 +141,12 @@ class Status { // eslint-disable-line no-unused-vars
   }
 
   clearByID (elementId) {
-    let theElement = this.find(elementId)
-    theElement.innerHTML = ''
+    if (!elementId === 'body') {
+      let theElement = this.find(elementId)
+      theElement.innerHTML = ''
+    } else {
+      document.body.innerHTML = ''
+    }
   }
 
   clearByClass (className) {

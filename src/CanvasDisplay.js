@@ -123,7 +123,19 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
       if (actor.type === 'player') {
         this.drawPlayer(actor, x, y, width, height)
       } else {
-        let tileX = (actor.type === 'coin' ? 2 : 1) * scale
+        // let tileX = (actor.type === 'coin' ? 2 : 1) * scale
+        let tileX = undefined // initalize variable
+        switch(actor.type) { // select correct displacement to load sprite for the actor.
+          case 'lava':
+            tileX = 1 * scale
+            break
+          case 'coin':
+            tileX = 2 * scale
+            break
+          case 'heart':
+            tileX = 3 * scale
+        }
+
         this.cx.drawImage(otherSprites,
                           tileX, 0, width, height,
                           x, y, width, height)
