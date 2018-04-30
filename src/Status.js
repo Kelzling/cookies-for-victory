@@ -24,7 +24,7 @@ class Status { // eslint-disable-line no-unused-vars
     this.makeImg('Lives', this.heartDead, 5, 'heart')
     
     this.makeDiv('Coins', 'levelCoins')
-    this.makeLabel('levelCoins', 'levelLabel', 'Level:', 'statusLabel')
+    this.makeLabel('levelCoins', 'levelLabel', 'Coins:', 'statusLabel')
     this.makeLabel('levelCoins', 'levelCoinCount', '0/0', 'statusLabel')
     this.insertNBS('levelCoins')
     this.makeImg('levelCoins', this.coinSprite, 'coin01', 'coinImage')
