@@ -1,7 +1,7 @@
 /* Status bar class for Software Engineering 1b assignment
 created April 2018
 Created by Thomas Baines and Kelsey Vavasour 
-updated to conform to standard JS 29/04/2018
+updated to conform to standard JS 30/04/2018
 */
 
 class Status { // eslint-disable-line no-unused-vars
@@ -23,6 +23,7 @@ class Status { // eslint-disable-line no-unused-vars
     this.makeImg('Lives', this.heartDead, 5, 'heart')
 
     this.makeLabel('Coins', 'coinCount', '0')
+    this.insertNBS('Coins')
     this.makeImg('Coins', this.coinSprite, 'coinImage')
   }
 
@@ -44,11 +45,13 @@ class Status { // eslint-disable-line no-unused-vars
   }
 
   resetCoins () {
+    // used when you die properly currently - will be subject to change later 
     this.coins = 0
     this.display()
   }
 
   addLife () {
+    // 1 UP!
     if (this.lives < 5) {
       this.lives++
       this.display()
@@ -58,12 +61,21 @@ class Status { // eslint-disable-line no-unused-vars
   }
 
   looseLife () {
-    if (this.lives > 0) {
+    if (this.lives > 1) {
       this.lives--
       this.display()
+      return true // you haven't died totally - have lives left
     } else {
-      throw new RangeError('Lives cannot be less than 0 - Player should die here')
+      this.resetCoins()
+      this.resetLives()
+      return false // you ran out of lives, go back to the start
     }
+  }
+  
+  resetLives() {
+    // this is used when you die properly and are reset to level 0
+    this.lives = 3
+    this.display()
   }
 
   // code from render begins

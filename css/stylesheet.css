@@ -49,11 +49,9 @@ body {
   position: relative;
 }
 
-canvas {
-  order: 0;
-}
 
 .status {
+  width: 570px; 
   padding-left: 0.2em;
   padding-right: 0.2em;
   order: 1;
@@ -67,6 +65,7 @@ canvas {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  align-items: baseline;
 }
 
 .heart {
@@ -74,6 +73,12 @@ canvas {
 }
 
 #coinCount {
-  font-size: 2em;
+  font-size: 3em;
   text-align: center;
+}
+
+canvas {
+  order: 0;
+  height: 450px;
+  width: 600px;
 }

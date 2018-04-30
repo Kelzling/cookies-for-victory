@@ -1,8 +1,8 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 19/04/2018 */
+Conforms to StandardJS 30/04/2018 */
 
-/* global Player, Coin, Lava, State, Level, requestAnimationFrame */
+/* global Player, Coin, Lava, State, Level, requestAnimationFrame, infoBar */
 
 // constant variables for game functions
 
@@ -27,17 +27,6 @@ otherSprites.src = 'img/sprites_20.png'
 const playerSprites = document.createElement('img')
 playerSprites.src = 'img/player_30.png'
 const playerXOverlap = 4 // eslint-disable-line no-unused-vars
-
-var simpleLevelPlan = `
-......................
-..#................#..
-..#..............=.#..
-..#.........o.o....#..
-..#.@......#####...#..
-..#####............#..
-......#++++++++++++#..
-......##############..
-.....................`
 
 // functions currently unattached to a class
 
@@ -136,6 +125,10 @@ async function runGame (plans, Display) { // eslint-disable-line no-unused-vars
     let status = await runLevel(new Level(plans[level]), Display)
     if (status === 'won') {
       level++
+    } else {
+      if (!infoBar.looseLife()) { // check if you ran out of lives
+        level = 0 // resets you to the first level
+      }
     }
   }
   console.log("You've won!")
