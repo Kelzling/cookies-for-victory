@@ -21,6 +21,7 @@ class Coin {
   }
 
   collide (state) {
+    infoBar.addCoin()
     let filtered = state.actors.filter(a => a !== this)
     let status = state.status
     if (!filtered.some(a => a.type === 'coin')) {
