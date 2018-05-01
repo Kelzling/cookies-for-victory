@@ -10,6 +10,7 @@
 <script src="src/Lava.js"></script>
 <script src="src/Coin.js"></script>
 <script src="src/Heart.js"></script>
+<script src="src/Goal.js"></script>
 <script src="src/DOMDisplay.js"></script>
 <script src="src/CanvasDisplay.js"></script>
 <script src="src/GameBits.js"></script>
@@ -27,8 +28,13 @@
     let display = new DOMDisplay(document.body, simpleLevel)
     display.setState(State.start(simpleLevel)) */
     const VERBOSE = true
+    const TESTMODE = false
     var infoBar = new Status()
-    runGame(TEST_LEVELS, CanvasDisplay)
+    if (TESTMODE) {
+      runGame(TEST_LEVELS, CanvasDisplay)
+    } else {
+      runGame(GAME_LEVELS, CanvasDisplay)
+    }
   </script>
 
 </body>
