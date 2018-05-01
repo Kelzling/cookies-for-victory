@@ -2,7 +2,7 @@
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
 Conforms to StandardJS 19/04/2018 */
 
-/* global Vec, State, wobbleSpeed, wobbleDist */
+/* global Vec, State, wobbleSpeed, wobbleDist, infoBar */
 
 class Coin {
   constructor (pos, basePos, wobble) {

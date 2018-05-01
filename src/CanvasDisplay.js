@@ -1,6 +1,6 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 19/04/2018 */
+Conforms to StandardJS 01/05/2018 */
 
 /* global scale, otherSprites, playerXOverlap, playerSprites */
 
@@ -124,8 +124,8 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
         this.drawPlayer(actor, x, y, width, height)
       } else {
         // let tileX = (actor.type === 'coin' ? 2 : 1) * scale
-        let tileX = undefined // initalize variable
-        switch(actor.type) { // select correct displacement to load sprite for the actor.
+        let tileX = 0 // initalize variable
+        switch (actor.type) { // select correct displacement to load sprite for the actor.
           case 'lava':
             tileX = 1 * scale
             break
