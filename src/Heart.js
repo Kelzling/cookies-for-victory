@@ -1,7 +1,7 @@
-/*Created by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 19/04/2018 */
+/* Created by Kelsey Vavasour and Thomas Baines April 2018
+Conforms to StandardJS 01/05/2018 */
 
-/* global Vec, State, wobbleSpeed, wobbleDist */
+/* global Vec, State, wobbleSpeed, wobbleDist, infoBar */
 
 class Heart {
   constructor (pos, basePos, wobble) {
