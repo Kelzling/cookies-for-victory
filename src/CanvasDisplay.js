@@ -134,6 +134,10 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
             break
           case 'heart':
             tileX = 3 * scale
+            break
+          case 'goal':
+            tileX = 4 * scale
+            break
         }
 
         this.cx.drawImage(otherSprites,

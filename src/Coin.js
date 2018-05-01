@@ -24,9 +24,9 @@ class Coin {
     infoBar.addCoin()
     let filtered = state.actors.filter(a => a !== this)
     let status = state.status
-    if (!filtered.some(a => a.type === 'coin')) {
+    /* if (!filtered.some(a => a.type === 'coin')) {
       status = 'won'
-    }
+    } */ // this is no longer the win condition
     return new State(state.level, filtered, status)
   }
 

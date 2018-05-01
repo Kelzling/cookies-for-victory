@@ -15,7 +15,8 @@ const levelChars = { // eslint-disable-line no-unused-vars
   '3': Heart,
   '=': Lava,
   '|': Lava,
-  'v': Lava
+  'v': Lava,
+  '!': Goal
 }
 const scale = 20
 const wobbleSpeed = 8 // eslint-disable-line no-unused-vars
