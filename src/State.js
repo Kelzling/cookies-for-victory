@@ -22,7 +22,17 @@ class State { // eslint-disable-line no-unused-vars
   update (time, keys) {
     let actors = this.actors.map(actor => actor.update(time, this, keys))
     let newState = new State(this.level, actors, this.status)
-
+    
+    if (TESTMODE) {
+      if (keys.Tab) {
+        newState.status = 'skip'
+      }
+      
+      if (keys.Backspace) {
+        newState.status = 'back'
+      }
+    }
+    
     if (newState.status !== 'playing') {
       return newState
     }

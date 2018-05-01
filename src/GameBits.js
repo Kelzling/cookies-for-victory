@@ -33,7 +33,7 @@ const playerXOverlap = 4 // eslint-disable-line no-unused-vars
 // functions currently unattached to a class
 
 function elt (name, attrs, ...children) {
-  // try and figure out why he named this function that, or give it a more sensible name, it confuses me.
+  // called elt because it creates elements and gives it some children and child nodes
   let dom = document.createElement(name)
   for (let attr of Object.keys(attrs)) {
     dom.setAttribute(attr, attrs[attr])
@@ -85,7 +85,7 @@ function trackKeys (keys) {
   return down
 }
 
-const arrowKeys = trackKeys(['ArrowLeft', 'ArrowRight', 'ArrowUp'])
+const gameKeys = trackKeys(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'Tab', 'Backspace'])
 
 function runAnimation (frameFunc) {
   let lastTime = null
@@ -107,7 +107,7 @@ function runLevel (level, Display) {
   let ending = 1
   return new Promise(resolve => {
     runAnimation(time => {
-      state = state.update(time, arrowKeys)
+      state = state.update(time, gameKeys)
       display.setState(state)
       if (state.status === 'playing') {
         return true
@@ -129,6 +129,10 @@ async function runGame (plans, Display) { // eslint-disable-line no-unused-vars
     if (status === 'won') {
       infoBar.bank()
       level++
+    } else if (status === 'skip' && level < plans.length - 1) {
+      level++
+    } else if (status === 'back' && level > 0) {
+      level--
     } else {
       if (!infoBar.looseLife()) { // check if you ran out of lives
         level = 0 // resets you to the first level
