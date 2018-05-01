@@ -2,37 +2,50 @@
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
 Conforms to StandardJS 30/04/2018 */
 
-/* global Player, Coin, Lava, State, Level, requestAnimationFrame, infoBar */
+/* global Player, Coin, Lava, State, Level, requestAnimationFrame, theInfoBar */
 
 // constant variables for game functions
 
-const levelChars = { // eslint-disable-line no-unused-vars
-  '.': 'empty',
-  '#': 'wall',
-  '+': 'lava',
-  '@': Player,
-  'o': Coin,
-  '3': Heart,
-  '=': Lava,
-  '|': Lava,
-  'v': Lava,
-  '!': Goal
+class GameEngine {
+  
+  static get scale () {
+    return 20
+  }
+  
+  static get wobbleSpeed () {
+    return 8
+  }
+  
+  static get wobbleDist () {
+    return 0.07
+  }
+  
+  static get gravity () {
+    return 30
+  }
+  
+  static get jumpSpeed () {
+    return 17
+  }
+  
 }
-const scale = 20
-const wobbleSpeed = 8 // eslint-disable-line no-unused-vars
-const wobbleDist = 0.07 // eslint-disable-line no-unused-vars
-const playerXSpeed = 7 // eslint-disable-line no-unused-vars
-const gravity = 30 // eslint-disable-line no-unused-vars
-const jumpSpeed = 17 // eslint-disable-line no-unused-vars
-const otherSprites = document.createElement('img')
-otherSprites.src = 'img/sprites_20.png'
-const playerSprites = document.createElement('img')
-playerSprites.src = 'img/player_30.png'
-const playerXOverlap = 4 // eslint-disable-line no-unused-vars
+
+// const scale = 20
+// const wobbleSpeed = 8 // eslint-disable-line no-unused-vars
+// const wobbleDist = 0.07 // eslint-disable-line no-unused-vars
+// const playerXSpeed = 7 // eslint-disable-line no-unused-vars
+// const gravity = 30 // eslint-disable-line no-unused-vars
+// const jumpSpeed = 17 // eslint-disable-line no-unused-vars
+// const otherSprites = document.createElement('img')
+// otherSprites.src = 'img/sprites_20.png'
+// const playerSprites = document.createElement('img')
+// playerSprites.src = 'img/player_30.png'
+// const playerXOverlap = 4 // eslint-disable-line no-unused-vars
 
 // functions currently unattached to a class
 
-function elt (name, attrs, ...children) {
+// to be moved to Render() and investigated later
+/* function elt (name, attrs, ...children) {
   // called elt because it creates elements and gives it some children and child nodes
   let dom = document.createElement(name)
   for (let attr of Object.keys(attrs)) {
@@ -42,9 +55,10 @@ function elt (name, attrs, ...children) {
     dom.appendChild(child)
   }
   return dom
-}
+} */
 
-function drawGrid (level) { // eslint-disable-line no-unused-vars
+// depreciated
+/* function drawGrid (level) { // eslint-disable-line no-unused-vars
   return elt('table', {
     class: 'background',
     style: `width: ${level.width * scale}px`
@@ -52,9 +66,10 @@ function drawGrid (level) { // eslint-disable-line no-unused-vars
     elt('tr', {style: `height: ${scale}px`},
     ...row.map(type => elt('td', {class: type})))
   ))
-}
+} */
 
-function drawActors (actors) { // eslint-disable-line no-unused-vars
+// depreciated
+/* function drawActors (actors) { // eslint-disable-line no-unused-vars
   return elt('div', {}, ...actors.map(actor => {
     let rect = elt('div', {class: `actor ${actor.type}`})
     rect.style.width = `${actor.size.x * scale}px`
@@ -63,7 +78,7 @@ function drawActors (actors) { // eslint-disable-line no-unused-vars
     rect.style.top = `${actor.pos.y * scale}px`
     return rect
   }))
-}
+} */
 
 function overlap (actor1, actor2) { // eslint-disable-line no-unused-vars
   return actor1.pos.x + actor1.size.x > actor2.pos.x &&
@@ -103,7 +118,7 @@ function runAnimation (frameFunc) {
 function runLevel (level, Display) {
   let display = new Display(document.body, level)
   let state = State.start(level)
-  infoBar.setLevelCoins(level.startActors.filter(a => a.type == 'coin').length)
+  theInfoBar.setLevelCoins(level.startActors.filter(a => a.type == 'coin').length)
   let ending = 1
   return new Promise(resolve => {
     runAnimation(time => {
@@ -127,18 +142,18 @@ async function runGame (plans, Display) { // eslint-disable-line no-unused-vars
   for (let level = 0; level < plans.length;) {
     let status = await runLevel(new Level(plans[level]), Display)
     if (status === 'won') {
-      infoBar.bank()
+      theInfoBar.bank()
       level++
     } else if (status === 'skip' && level < plans.length - 1) {
       level++
     } else if (status === 'back' && level > 0) {
       level--
     } else {
-      if (!infoBar.looseLife()) { // check if you ran out of lives
+      if (!theInfoBar.looseLife()) { // check if you ran out of lives
         level = 0 // resets you to the first level
       }
     }
   }
-  infoBar.vanish()
+  theInfoBar.vanish()
   console.log("You've won!")
 }

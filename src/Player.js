@@ -8,6 +8,7 @@ class Player {
   constructor (pos, speed) {
     this.pos = pos
     this.speed = speed
+    this.playerXSpeed = 7
   }
 
   get type () {
@@ -20,29 +21,33 @@ class Player {
   }
 
   update (time, state, keys) {
-    let xSpeed = 0
-    if (keys.ArrowLeft) {
-      xSpeed -= playerXSpeed
-    }
-    if (keys.ArrowRight) {
-      xSpeed += playerXSpeed
-    }
-    let pos = this.pos
-    let movedX = pos.plus(new Vec(xSpeed * time, 0))
-    if (!state.level.touches(movedX, this.size, 'wall')) {
-      pos = movedX
-    }
+    if (state.status !== 'lost') {
+      let xSpeed = 0
+      if (keys.ArrowLeft) {
+        xSpeed -= this.playerXSpeed
+      }
+      if (keys.ArrowRight) {
+        xSpeed += this.playerXSpeed
+      }
+      let pos = this.pos
+      let movedX = pos.plus(new Vec(xSpeed * time, 0))
+      if (!state.level.touches(movedX, this.size, 'wall')) {
+        pos = movedX
+      }
 
-    let ySpeed = this.speed.y + time * gravity
-    let movedY = pos.plus(new Vec(0, ySpeed * time))
-    if (!state.level.touches(movedY, this.size, 'wall')) {
-      pos = movedY
-    } else if (keys.ArrowUp && ySpeed > 0) {
-      ySpeed = -jumpSpeed
+      let ySpeed = this.speed.y + time * GameEngine.gravity
+      let movedY = pos.plus(new Vec(0, ySpeed * time))
+      if (!state.level.touches(movedY, this.size, 'wall')) {
+        pos = movedY
+      } else if (keys.ArrowUp && ySpeed > 0) {
+        ySpeed = -GameEngine.jumpSpeed
+      } else {
+        ySpeed = 0
+      }
+      return new Player(pos, new Vec(xSpeed, ySpeed))
     } else {
-      ySpeed = 0
+      return new Player(this.pos, new Vec(0, 0))
     }
-    return new Player(pos, new Vec(xSpeed, ySpeed))
   }
 }
 

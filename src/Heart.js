@@ -1,7 +1,7 @@
 /* Created by Kelsey Vavasour and Thomas Baines April 2018
 Conforms to StandardJS 01/05/2018 */
 
-/* global Vec, State, wobbleSpeed, wobbleDist, infoBar */
+/* global Vec, State, wobbleSpeed, wobbleDist, theInfoBar */
 
 class Heart {
   constructor (pos, basePos, wobble) {
@@ -20,15 +20,15 @@ class Heart {
   }
 
   collide (state) {
-    infoBar.addLife()
+    theInfoBar.addLife()
     let filtered = state.actors.filter(a => a !== this)
     let status = state.status
     return new State(state.level, filtered, status)
   }
 
   update (time) {
-    let wobble = this.wobble + time * wobbleSpeed
-    let wobblePos = Math.sin(wobble) * wobbleDist
+    let wobble = this.wobble + time * GameEngine.wobbleSpeed
+    let wobblePos = Math.sin(wobble) * GameEngine.wobbleDist
     return new Heart(this.basePos.plus(new Vec(0, wobblePos)), this.basePos, wobble)
   }
 }

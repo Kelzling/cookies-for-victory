@@ -2,7 +2,7 @@
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
 Conforms to StandardJS 19/04/2018 */
 
-/* global Vec, State, wobbleSpeed, wobbleDist, infoBar */
+/* global Vec, State, wobbleSpeed, wobbleDist, theInfoBar */
 
 class Coin {
   constructor (pos, basePos, wobble) {
@@ -21,7 +21,7 @@ class Coin {
   }
 
   collide (state) {
-    infoBar.addCoin()
+    theInfoBar.addCoin()
     let filtered = state.actors.filter(a => a !== this)
     let status = state.status
     /* if (!filtered.some(a => a.type === 'coin')) {
@@ -31,8 +31,8 @@ class Coin {
   }
 
   update (time) {
-    let wobble = this.wobble + time * wobbleSpeed
-    let wobblePos = Math.sin(wobble) * wobbleDist
+    let wobble = this.wobble + time * GameEngine.wobbleSpeed
+    let wobblePos = Math.sin(wobble) * GameEngine.wobbleDist
     return new Coin(this.basePos.plus(new Vec(0, wobblePos)), this.basePos, wobble)
   }
 }

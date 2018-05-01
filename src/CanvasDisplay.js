@@ -2,13 +2,14 @@
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
 Conforms to StandardJS 01/05/2018 */
 
-/* global scale, otherSprites, playerXOverlap, playerSprites */
+/* global GameEngine.scale, otherSprites, playerXOverlap, playerSprites */
 
 class CanvasDisplay { // eslint-disable-line no-unused-vars
   constructor (parent, level) {
+    this.playerXOverlap = 4
     this.canvas = document.createElement('canvas')
-    this.canvas.width = Math.min(600, level.width * scale)
-    this.canvas.height = Math.min(450, level.height * scale)
+    this.canvas.width = Math.min(600, level.width * GameEngine.scale)
+    this.canvas.height = Math.min(450, level.height * GameEngine.scale)
     parent.appendChild(this.canvas)
     this.cx = this.canvas.getContext('2d')
 
@@ -17,8 +18,8 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
     this.viewport = {
       left: 0,
       top: 0,
-      width: this.canvas.width / scale,
-      height: this.canvas.height / scale
+      width: this.canvas.width / GameEngine.scale,
+      height: this.canvas.height / GameEngine.scale
     }
   }
 
@@ -79,20 +80,20 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
       for (let x = xStart; x < xEnd; x++) {
         let tile = level.rows[y][x]
         if (tile === 'empty') continue
-        let screenX = (x - left) * scale
-        let screenY = (y - top) * scale
-        let tileX = tile === 'lava' ? scale : 0
-        this.cx.drawImage(otherSprites,
-                          tileX, 0, scale, scale,
-                          screenX, screenY, scale, scale)
+        let screenX = (x - left) * GameEngine.scale
+        let screenY = (y - top) * GameEngine.scale
+        let tileX = tile === 'lava' ? GameEngine.scale : 0
+        this.cx.drawImage(this.otherSprites,
+                          tileX, 0, GameEngine.scale, GameEngine.scale,
+                          screenX, screenY, GameEngine.scale, GameEngine.scale)
       }
     }
   }
 
   drawPlayer (player, x, y,
                         width, height) {
-    width += playerXOverlap * 2
-    x -= playerXOverlap
+    width += this.playerXOverlap * 2
+    x -= this.playerXOverlap
     if (player.speed.x !== 0) {
       this.flipPlayer = player.speed.x < 0
     }
@@ -109,41 +110,47 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
       this.flipHorizontally(this.cx, x + width / 2)
     }
     let tileX = tile * width
-    this.cx.drawImage(playerSprites, tileX, 0, width, height,
+    this.cx.drawImage(this.playerSprites, tileX, 0, width, height,
                                      x, y, width, height)
     this.cx.restore()
   };
 
   drawActors (actors) {
     for (let actor of actors) {
-      let width = actor.size.x * scale
-      let height = actor.size.y * scale
-      let x = (actor.pos.x - this.viewport.left) * scale
-      let y = (actor.pos.y - this.viewport.top) * scale
+      let width = actor.size.x * GameEngine.scale
+      let height = actor.size.y * GameEngine.scale
+      let x = (actor.pos.x - this.viewport.left) * GameEngine.scale
+      let y = (actor.pos.y - this.viewport.top) * GameEngine.scale
       if (actor.type === 'player') {
         this.drawPlayer(actor, x, y, width, height)
       } else {
-        // let tileX = (actor.type === 'coin' ? 2 : 1) * scale
+        // let tileX = (actor.type === 'coin' ? 2 : 1) * GameEngine.scale
         let tileX = 0 // initalize variable
         switch (actor.type) { // select correct displacement to load sprite for the actor.
           case 'lava':
-            tileX = 1 * scale
+            tileX = 1 * GameEngine.scale
             break
           case 'coin':
-            tileX = 2 * scale
+            tileX = 2 * GameEngine.scale
             break
           case 'heart':
-            tileX = 3 * scale
+            tileX = 3 * GameEngine.scale
             break
           case 'goal':
-            tileX = 4 * scale
+            tileX = 4 * GameEngine.scale
             break
         }
 
-        this.cx.drawImage(otherSprites,
+        this.cx.drawImage(this.otherSprites,
                           tileX, 0, width, height,
                           x, y, width, height)
       }
     }
   }
 }
+
+CanvasDisplay.prototype.otherSprites = document.createElement('img')
+CanvasDisplay.prototype.otherSprites.src = 'img/sprites_20.png'
+
+CanvasDisplay.prototype.playerSprites = document.createElement('img')
+CanvasDisplay.prototype.playerSprites.src = 'img/player_30.png'
