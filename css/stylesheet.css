@@ -72,9 +72,18 @@ body {
   padding-right: 0.1em;
 }
 
-#coinCount {
+.statusLabel {
   font-size: 3em;
   text-align: center;
+}
+
+#Coins {
+  display: flex;
+  flex-direction: row;
+}
+
+#Coins > :first-child {
+  margin-right: 1em;
 }
 
 canvas {

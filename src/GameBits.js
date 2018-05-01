@@ -12,9 +12,11 @@ const levelChars = { // eslint-disable-line no-unused-vars
   '+': 'lava',
   '@': Player,
   'o': Coin,
+  '3': Heart,
   '=': Lava,
   '|': Lava,
-  'v': Lava
+  'v': Lava,
+  '!': Goal
 }
 const scale = 20
 const wobbleSpeed = 8 // eslint-disable-line no-unused-vars
@@ -101,6 +103,7 @@ function runAnimation (frameFunc) {
 function runLevel (level, Display) {
   let display = new Display(document.body, level)
   let state = State.start(level)
+  infoBar.setLevelCoins(level.startActors.filter(a => a.type == 'coin').length)
   let ending = 1
   return new Promise(resolve => {
     runAnimation(time => {
@@ -124,6 +127,7 @@ async function runGame (plans, Display) { // eslint-disable-line no-unused-vars
   for (let level = 0; level < plans.length;) {
     let status = await runLevel(new Level(plans[level]), Display)
     if (status === 'won') {
+      infoBar.bank()
       level++
     } else {
       if (!infoBar.looseLife()) { // check if you ran out of lives
@@ -131,5 +135,6 @@ async function runGame (plans, Display) { // eslint-disable-line no-unused-vars
       }
     }
   }
+  infoBar.vanish()
   console.log("You've won!")
 }
