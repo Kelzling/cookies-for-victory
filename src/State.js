@@ -43,7 +43,7 @@ class State { // eslint-disable-line no-unused-vars
     }
 
     for (let actor of actors) {
-      if (actor !== player && overlap(actor, player)) {
+      if (actor !== player && GameEngine.overlap(actor, player)) {
         newState = actor.collide(newState)
       }
     }
