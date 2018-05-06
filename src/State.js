@@ -23,7 +23,7 @@ class State { // eslint-disable-line no-unused-vars
     let actors = this.actors.map(actor => actor.update(time, this, keys))
     let newState = new State(this.level, actors, this.status)
     
-    if (TESTMODE) {
+    if (CHEATMODE) {
       if (keys.Tab) {
         newState.status = 'skip'
       }
@@ -43,7 +43,7 @@ class State { // eslint-disable-line no-unused-vars
     }
 
     for (let actor of actors) {
-      if (actor !== player && overlap(actor, player)) {
+      if (actor !== player && GameEngine.overlap(actor, player)) {
         newState = actor.collide(newState)
       }
     }

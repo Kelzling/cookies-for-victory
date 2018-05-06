@@ -13,7 +13,7 @@ class Level { // eslint-disable-line no-unused-vars
 
     this.rows = rows.map((row, y) => {
       return row.map((ch, x) => {
-        let type = levelChars[ch]
+        let type = this.levelChars[ch]
         if (typeof type === 'string') {
           return type
         }
@@ -40,4 +40,17 @@ class Level { // eslint-disable-line no-unused-vars
     }
     return false
   }
+}
+
+Level.prototype.levelChars = { // eslint-disable-line no-unused-vars
+  '.': 'empty',
+  '#': 'wall',
+  '+': 'lava',
+  '@': Player,
+  'o': Coin,
+  '3': Heart,
+  '=': Lava,
+  '|': Lava,
+  'v': Lava,
+  '!': Goal
 }
