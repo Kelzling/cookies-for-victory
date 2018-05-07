@@ -55,7 +55,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
   clearDisplay (status) {
     if (status === 'won') {
       this.cx.fillStyle = 'rgb(68, 191, 255)'
-    } else if (status === 'lost') {
+    } else if (status === 'lost' || status === 'dead') {
       this.cx.fillStyle = 'rgb(44, 136, 214'
     } else {
       this.cx.fillStyle = 'rgb(52, 166, 251)'

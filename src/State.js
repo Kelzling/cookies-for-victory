@@ -39,7 +39,11 @@ class State { // eslint-disable-line no-unused-vars
 
     let player = newState.player
     if (this.level.touches(player.pos, player.size, 'lava')) {
-      return new State(this.level, actors, 'lost')
+      if (theInfoBar.looseLife()) {
+        return new State(this.level, actors, 'dead')
+      } else {
+        return new State(this.level, actors, 'lost')
+      }
     }
 
     for (let actor of actors) {

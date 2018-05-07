@@ -74,6 +74,15 @@ class GameEngine { // eslint-disable-line no-unused-vars
         } else if (ending > 0) {
           ending -= time
           return true
+        } else if (state.status === 'dead') {
+          let actors = state.actors
+          let playerIndex = actors.indexOf(state.player)
+          let player = actors.splice(playerIndex, 1)[0]
+          actors.push(player.respawn())
+          state = new State(level, actors, 'playing')
+          display.setState(state)
+          ending = 1
+          return true
         } else {
           display.clear()
           resolve(state.status)
@@ -94,10 +103,10 @@ class GameEngine { // eslint-disable-line no-unused-vars
         level++
       } else if (status === 'back' && level > 0) {
         level--
-      } else {
-        if (!theInfoBar.looseLife()) { // check if you ran out of lives
+      } else if (status === 'lost') {
           level = 0 // resets you to the first level
-        }
+      } else {
+        console.log("shouldn't be getting this message")
       }
     }
     theInfoBar.vanish()

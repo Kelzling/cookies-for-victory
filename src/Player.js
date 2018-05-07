@@ -5,8 +5,9 @@ Conforms to StandardJS 19/04/2018 */
 /* global Vec, playerXSpeed, gravity, jumpSpeed */
 
 class Player {
-  constructor (pos, speed) {
+  constructor (pos, respawnPos, speed) {
     this.pos = pos
+    this.respawnPos = respawnPos
     this.speed = speed
     this.playerXSpeed = 7
   }
@@ -17,11 +18,16 @@ class Player {
 
   static create (pos) {
     return new Player(pos.plus(new Vec(0, -0.5)),
+                      pos.plus(new Vec(0, -0.5)),
                       new Vec(0, 0))
+  }
+  
+  respawn () {
+    return new Player(this.respawnPos, this.respawnPos, new Vec(0, 0))
   }
 
   update (time, state, keys) {
-    if (state.status !== 'lost') {
+    if (state.status !== 'lost' && state.status !== 'dead') {
       let xSpeed = 0
       if (keys.ArrowLeft) {
         xSpeed -= this.playerXSpeed
@@ -44,9 +50,9 @@ class Player {
       } else {
         ySpeed = 0
       }
-      return new Player(pos, new Vec(xSpeed, ySpeed))
+      return new Player(pos, this.respawnPos, new Vec(xSpeed, ySpeed))
     } else {
-      return new Player(this.pos, new Vec(0, 0))
+      return new Player(this.pos, this.respawnPos, new Vec(0, 0))
     }
   }
 }
