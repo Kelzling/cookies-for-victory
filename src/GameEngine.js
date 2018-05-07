@@ -72,13 +72,17 @@ class GameEngine { // eslint-disable-line no-unused-vars
         if (state.status === 'playing') {
           return true
         } else if (ending > 0) {
+          // give the player time to observe their failure
           ending -= time
           return true
         } else if (state.status === 'dead') {
+          // Remove the current Player object from the actors array and store it
           let actors = state.actors
           let playerIndex = actors.indexOf(state.player)
-          let player = actors.splice(playerIndex, 1)[0]
+          let player = actors.splice(playerIndex, 1)[0] // splice returns an array, so this sets the variable to the one element that is returned
+          // Replace it with a new instance of Player that has been moved to the respawn location
           actors.push(player.respawn())
+          // reset State to 'playing' with the modified actors array, then update the display and reset the ending variable.
           state = new State(level, actors, 'playing')
           display.setState(state)
           ending = 1
@@ -97,6 +101,7 @@ class GameEngine { // eslint-disable-line no-unused-vars
     for (let level = 0; level < plans.length;) {
       let status = await GameEngine.runLevel(new Level(plans[level]), Display, gameKeys)
       if (status === 'won') {
+        // add collected coins to the bank and increment the level
         theInfoBar.bank()
         level++
       } else if (status === 'skip' && level < plans.length - 1) {

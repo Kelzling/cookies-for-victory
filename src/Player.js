@@ -23,6 +23,7 @@ class Player {
   }
   
   respawn () {
+    // returns the Player to the respawn location
     return new Player(this.respawnPos, this.respawnPos, new Vec(0, 0))
   }
 

@@ -39,6 +39,7 @@ class State { // eslint-disable-line no-unused-vars
 
     let player = newState.player
     if (this.level.touches(player.pos, player.size, 'lava')) {
+      // Only set the game status to lost if the player has no lives remaining
       if (theInfoBar.looseLife()) {
         return new State(this.level, actors, 'dead')
       } else {
