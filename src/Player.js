@@ -26,6 +26,10 @@ class Player {
     // returns the Player to the respawn location
     return new Player(this.respawnPos, this.respawnPos, new Vec(0, 0))
   }
+  
+  updateRespawn (pos) {
+    this.respawnPos = pos
+  }
 
   update (time, state, keys) {
     if (state.status !== 'lost' && state.status !== 'dead') {
