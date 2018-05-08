@@ -1,12 +1,13 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 19/04/2018 */
+Conforms to StandardJS 09/05/2018 */
 
 /* global Vec, playerXSpeed, gravity, jumpSpeed */
 
 class Player {
-  constructor (pos, speed) {
+  constructor (pos, respawnPos, speed) {
     this.pos = pos
+    this.respawnPos = respawnPos
     this.speed = speed
     this.playerXSpeed = 7
   }
@@ -17,11 +18,30 @@ class Player {
 
   static create (pos) {
     return new Player(pos.plus(new Vec(0, -0.5)),
+                      pos.plus(new Vec(0, -0.5)),
                       new Vec(0, 0))
+  }
+  
+  die(state) {
+    // Only set the game status to lost if the player has no lives remaining
+      if (theInfoBar.looseLife()) {
+        return new State(state.level, state.actors, 'dead')
+      } else {
+        return new State(state.level, state.actors, 'lost')
+      }
+  }
+  
+  respawn () {
+    // returns the Player to the respawn location
+    return new Player(this.respawnPos, this.respawnPos, new Vec(0, 0))
+  }
+  
+  updateRespawn (pos) {
+    this.respawnPos = pos
   }
 
   update (time, state, keys) {
-    if (state.status !== 'lost') {
+    if (state.status !== 'lost' && state.status !== 'dead') {
       let xSpeed = 0
       if (keys.ArrowLeft) {
         xSpeed -= this.playerXSpeed
@@ -44,9 +64,9 @@ class Player {
       } else {
         ySpeed = 0
       }
-      return new Player(pos, new Vec(xSpeed, ySpeed))
+      return new Player(pos, this.respawnPos, new Vec(xSpeed, ySpeed))
     } else {
-      return new Player(this.pos, new Vec(0, 0))
+      return new Player(this.pos, this.respawnPos, new Vec(0, 0))
     }
   }
 }

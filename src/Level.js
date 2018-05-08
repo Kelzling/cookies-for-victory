@@ -1,8 +1,8 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 19/04/2018 */
+Conforms to StandardJS 09/05/2018 */
 
-/* global levelChars, Vec */
+/* global Vec, Lava, Player, Coin, Heart, Goal, Checkpoint */
 
 class Level { // eslint-disable-line no-unused-vars
   constructor (plan) {
@@ -93,5 +93,6 @@ Level.prototype.levelChars = { // eslint-disable-line no-unused-vars
   '=': Lava,
   '|': Lava,
   'v': Lava,
-  '!': Goal
+  '!': Goal,
+  '&': Checkpoint
 }

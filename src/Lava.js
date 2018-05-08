@@ -2,7 +2,7 @@
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
 Conforms to StandardJS 19/04/2018 */
 
-/* global Vec, State */
+/* global Vec */
 
 class Lava {
   constructor (pos, speed, reset) {
@@ -26,7 +26,9 @@ class Lava {
   }
 
   collide (state) {
-    return new State(state.level, state.actors, 'lost')
+    // player is dying here
+    let player = state.player
+    return player.die(state)
   }
 
   update (time, state) {

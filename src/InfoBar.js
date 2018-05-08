@@ -1,8 +1,10 @@
 /* Information bar class for Software Engineering 1b assignment
 created April 2018
-Created by Thomas Baines and Kelsey Vavasour 
-updated to conform to standard JS 30/04/2018
+Created by Thomas Baines and Kelsey Vavasour
+updated to conform to standard JS 09/05/2018
 */
+
+/* global DOMRender, VERBOSE */
 
 class InfoBar { // eslint-disable-line no-unused-vars
   constructor () {
@@ -14,8 +16,8 @@ class InfoBar { // eslint-disable-line no-unused-vars
     this.coinSprite = './img/status_coin.png'
     this.loadInfo()
   }
-  
-  loadInfo() {
+
+  loadInfo () {
     DOMRender.makeDiv('body', 'statusBar', 'status')
     DOMRender.makeDiv('statusBar', 'Lives')
     DOMRender.insertNBS('statusBar')
@@ -26,25 +28,25 @@ class InfoBar { // eslint-disable-line no-unused-vars
     }
     DOMRender.makeImg('Lives', this.heartDead, 4, 'heart')
     DOMRender.makeImg('Lives', this.heartDead, 5, 'heart')
-    
+
     DOMRender.makeDiv('Coins', 'levelCoins')
     DOMRender.makeLabel('levelCoins', 'levelLabel', 'Coins:', 'statusLabel')
     DOMRender.makeLabel('levelCoins', 'levelCoinCount', '0/0', 'statusLabel')
     DOMRender.insertNBS('levelCoins')
     DOMRender.makeImg('levelCoins', this.coinSprite, 'coin01', 'coinImage')
-    
+
     DOMRender.makeDiv('Coins', 'Bank')
     DOMRender.makeLabel('Bank', 'bankLabel', 'Bank:', 'statusLabel')
     DOMRender.makeLabel('Bank', 'bankCoinCount', '0', 'statusLabel')
     DOMRender.insertNBS('Bank')
     DOMRender.makeImg('Bank', this.coinSprite, 'coin02', 'coinImage')
   }
-  
-  vanish() {
+
+  vanish () {
     DOMRender.disable('statusBar')
   }
-  
-  setLevelCoins(numCoins) {
+
+  setLevelCoins (numCoins) {
     if (VERBOSE) {
       console.log(`Number of coins is ${numCoins}`)
     }
@@ -59,8 +61,8 @@ class InfoBar { // eslint-disable-line no-unused-vars
       this.display()
     }
   }
-  
-  bank() {
+
+  bank () {
     this.coins += this.levelCoins[0]
     this.levelCoins = [0, 0]
     this.display()
@@ -85,7 +87,7 @@ class InfoBar { // eslint-disable-line no-unused-vars
   }
 
   resetCoins () {
-    // used when you die properly currently - will be subject to change later 
+    // used when you die properly currently - will be subject to change later
     this.coins = 0
     this.levelCoins = [0, 0]
     this.display()
@@ -124,14 +126,12 @@ class InfoBar { // eslint-disable-line no-unused-vars
       return false // you ran out of lives, go back to the start
     }
   }
-  
-  resetLives() {
+
+  resetLives () {
     // this is used when you die properly and are reset to level 0
     this.lives = 3
     this.display()
   }
 
   // code from render begins
-
- 
 }

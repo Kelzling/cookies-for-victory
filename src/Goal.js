@@ -1,5 +1,5 @@
 /* Created by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 01/05/2018 */
+Conforms to StandardJS 09/05/2018 */
 
 /* global State, Vec */
 

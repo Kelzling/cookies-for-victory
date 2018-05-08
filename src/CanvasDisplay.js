@@ -1,8 +1,8 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 01/05/2018 */
+Conforms to StandardJS 09/05/2018 */
 
-/* global GameEngine.scale, otherSprites, playerXOverlap, playerSprites */
+/* global GameEngine */
 
 class CanvasDisplay { // eslint-disable-line no-unused-vars
   constructor (parent, level) {
@@ -55,7 +55,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
   clearDisplay (status) {
     if (status === 'won') {
       this.cx.fillStyle = 'rgb(68, 191, 255)'
-    } else if (status === 'lost') {
+    } else if (status === 'lost' || status === 'dead') {
       this.cx.fillStyle = 'rgb(44, 136, 214'
     } else {
       this.cx.fillStyle = 'rgb(52, 166, 251)'
@@ -138,6 +138,9 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
             break
           case 'goal':
             tileX = 4 * GameEngine.scale
+            break
+          case 'checkpoint':
+            tileX = 5 * GameEngine.scale
             break
         }
 
