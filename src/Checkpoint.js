@@ -1,7 +1,7 @@
 /* Created by Kelsey Vavasour and Thomas Baines May 2018
-Conforms to StandardJS xx/05/2018 */
+Conforms to StandardJS 09/05/2018 */
 
-/* global State, Vec */
+/* global Vec */
 
 class Checkpoint {
   constructor (pos) {
@@ -20,9 +20,10 @@ class Checkpoint {
   collide (state) {
     if (!this.touched) {
       let player = state.player
-      player.updateRespawn(this.pos)
+      player.updateRespawn(this.pos.minus(new Vec(0, 0.5)))
       this.touched = true
     }
+    return state
   }
 
   update () {

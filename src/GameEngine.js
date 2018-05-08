@@ -109,7 +109,7 @@ class GameEngine { // eslint-disable-line no-unused-vars
       } else if (status === 'back' && level > 0) {
         level--
       } else if (status === 'lost') {
-          level = 0 // resets you to the first level
+        level = 0 // resets you to the first level
       } else {
         console.log("shouldn't be getting this message")
       }

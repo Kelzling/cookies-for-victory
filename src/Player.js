@@ -1,6 +1,6 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 19/04/2018 */
+Conforms to StandardJS 09/05/2018 */
 
 /* global Vec, playerXSpeed, gravity, jumpSpeed */
 
@@ -20,6 +20,15 @@ class Player {
     return new Player(pos.plus(new Vec(0, -0.5)),
                       pos.plus(new Vec(0, -0.5)),
                       new Vec(0, 0))
+  }
+  
+  die(state) {
+    // Only set the game status to lost if the player has no lives remaining
+      if (theInfoBar.looseLife()) {
+        return new State(state.level, state.actors, 'dead')
+      } else {
+        return new State(state.level, state.actors, 'lost')
+      }
   }
   
   respawn () {

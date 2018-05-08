@@ -1,6 +1,6 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 19/04/2018 */
+Conforms to StandardJS 09/05/2018 */
 
 /* global overlap */
 
@@ -39,12 +39,7 @@ class State { // eslint-disable-line no-unused-vars
 
     let player = newState.player
     if (this.level.touches(player.pos, player.size, 'lava')) {
-      // Only set the game status to lost if the player has no lives remaining
-      if (theInfoBar.looseLife()) {
-        return new State(this.level, actors, 'dead')
-      } else {
-        return new State(this.level, actors, 'lost')
-      }
+      return player.die(this)
     }
 
     for (let actor of actors) {
