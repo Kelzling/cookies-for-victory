@@ -63,7 +63,7 @@ class GameEngine { // eslint-disable-line no-unused-vars
   static runLevel (level, Display, gameKeys) {
     let display = new Display(document.body, level)
     let state = State.start(level)
-    theInfoBar.setLevelCoins(level.startActors.filter(a => a.type === 'coin').length)
+    theInfoBar.setLevelCoins(level.countActors('coin'))
     let ending = 1
     return new Promise(resolve => {
       GameEngine.runAnimation(time => {
