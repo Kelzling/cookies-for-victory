@@ -44,7 +44,11 @@ class Level { // eslint-disable-line no-unused-vars
   
   countActors(type) {
     // counts the number of 
-    return (this.startActors.filter(a => a.type == type).length)
+    let numActors = this.startActors.filter(a => a.type == type).length
+    if (VERBOSE) {
+      console.log(`There are ${numActors} actors of type: ${type} in this level.`)
+    }
+    return numActors
   }
   
   validate() {
@@ -71,9 +75,9 @@ class Level { // eslint-disable-line no-unused-vars
       }
       
       if (this.countActors('heart') === 0) {
-        console.log('No hearts detected!')
-      } else {
         console.log('No Hearts in level')
+      } else {
+        console.log('Hearts Detected')
       }
     }
   }
