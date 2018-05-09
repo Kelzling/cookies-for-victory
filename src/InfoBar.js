@@ -43,7 +43,8 @@ class InfoBar { // eslint-disable-line no-unused-vars
   }
 
   vanish () {
-    DOMRender.disableElement('statusBar')
+    DOMRender.clearByID('statusBar')
+	DOMRender.makeHeader('statusBar', 1, 'You win!', 'win')
   }
 
   setLevelCoins (numCoins) {
