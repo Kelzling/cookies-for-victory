@@ -1,6 +1,6 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 09/05/2018 */
+Conforms to StandardJS 16/05/2018 */
 
 /* global Vec, Lava, Player, Coin, Heart, Goal, Checkpoint */
 
@@ -60,24 +60,27 @@ class Level { // eslint-disable-line no-unused-vars
     } else if (VERBOSE) {
       console.log('Player detected')
     }
-  
-    if (this.countActors('goal') === 0) { // goal check
+    
+    
+    console.assert(this.countActors('goal') > 0, 'Warning! This level has no goal!')
+    
+    /* if (this.countActors('goal') === 0) { // goal check
         console.warn('Warning! This level has no goal!') // this is a critical error, so the warning comes through irrespective of VERBOSE
     } else if (VERBOSE) {
         console.log('Goal(s) detected')
-    }
+    } */
     
     if (VERBOSE) { // other checks, these are only run in verbose mode
-      if (this.countActors('coin') === 0) {
-        console.warn('This level has no coins!')
-      } else {
+      if (this.countActors('coin') !== 0) {
         console.log('Coins detected')
+      } else {
+        console.warn('This level has no coins!')
       }
       
-      if (this.countActors('heart') === 0) {
-        console.log('No Hearts in level')
-      } else {
+      if (this.countActors('heart') !== 0) {
         console.log('Hearts Detected')
+      } else {
+        console.log('No Hearts in level')
       }
     }
   }
