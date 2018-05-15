@@ -26,6 +26,10 @@ class GameEngine { // eslint-disable-line no-unused-vars
   static get jumpSpeed () {
     return 17
   }
+  
+  static get backgroundObjects () {
+    return ['empty', 'lava', 'wall']
+  }
 
   static overlap (actor1, actor2) { // eslint-disable-line no-unused-vars
     return actor1.pos.x + actor1.size.x > actor2.pos.x &&
@@ -117,6 +121,40 @@ class GameEngine { // eslint-disable-line no-unused-vars
     theInfoBar.vanish()
     console.log("You've won!")
   }
+  
+  static isAbove (state, pos, objectType) {
+    // takes the current state, a vector, and the object type as a string
+    if (this.backgroundObjects.includes(objectType)) { // is it one of the background objects
+      if(objectType !== 'lava') { // lava can also exist as an actor
+        if (state.level.rows[(pos.y+1)][pos.x] === objectType) {
+          return true
+        } else { // is not above what you're expecting
+          return false
+        }
+      } else { // type you're looking for is lava, this is an exception because it might be an actor also
+        if (state.level.rows[(pos.y+1)][pos.x] === objectType) {
+          return true
+        }
+      }
+    } else { // this means the thing being searched for is an actor
+      let filteredActors = state.filterActors(objectType)
+      if (filteredActors.length !== 0) {
+        // search the array
+        for (let theActor of filterActors) {
+          if () { // fuzzy check to see if the given position is generally above the object type - levels of tolerance are needed
+            return true
+          } else {
+            // do nothing
+            ;
+          }
+        }
+      } else { // actor you're looking for does not exist in level, therefore the position can't be above it
+        console.warn(`isAbove was called on ${objectType}. There are no instances of this object in the level!`)
+        return false
+      }
+    }
+  }
+  
 }
 
 // const scale = 20
