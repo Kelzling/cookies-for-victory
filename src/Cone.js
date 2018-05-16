@@ -15,13 +15,21 @@ class Cone {
   }
 
   static create (pos, ch) {
-    return new cone(pos, new Vec(2, 0))
+    return new Cone(pos, new Vec(2, 0))
   }
 
   collide (state) {
-    // player is dying here
+    // two options. Player runs into side of cone, or player jumps on cone from above.
     let player = state.player
-    return player.die(state)
+    if (GameEngine.isAbove(state, player.pos, this.type)) { // player hit the cone from above
+      let filtered = state.actors.filter(a => a !== this)
+      let status = state.status
+      return new State(state.level, filtered, status)
+    } else { // hit the cone from the side or below, and therefore died
+      return player.die(state)
+    }
+    
+
   }
 
   update (time, state) {

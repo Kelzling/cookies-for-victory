@@ -115,7 +115,7 @@ class GameEngine { // eslint-disable-line no-unused-vars
       } else if (status === 'lost') {
         level = 0 // resets you to the first level
       } else {
-        console.log("shouldn't be getting this message")
+        console.warn("shouldn't be getting this message")
       }
     }
     theInfoBar.vanish()
@@ -140,12 +140,14 @@ class GameEngine { // eslint-disable-line no-unused-vars
       let filteredActors = state.filterActors(objectType)
       if (filteredActors.length !== 0) {
         // search the array
-        for (let theActor of filterActors) {
-          if () { // fuzzy check to see if the given position is generally above the object type - levels of tolerance are needed
+        for (let theActor of filteredActors) {
+          if (theActor.pos.y > pos.y + 1 // actor must be below the position on the Y axis
+            && theActor.pos.y >= pos.y - 1.5 // but not too far below, tolerance of 1.5 units due to falling speed
+            && theActor.pos.x > pos.x - 1.2  && theActor.pos.x < pos.x + 1.2 // The actor being searched for is under the absolute position of the player, plus or minus 0.5 units
+            ) { // fuzzy check to see if the given position is generally above the object type - levels of tolerance are needed
             return true
           } else {
-            // do nothing
-            ;
+            return false
           }
         }
       } else { // actor you're looking for does not exist in level, therefore the position can't be above it
