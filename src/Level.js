@@ -84,6 +84,13 @@ class Level { // eslint-disable-line no-unused-vars
       } else {
         console.log('No Hearts in level')
       }
+      
+      if (this.countActors('cone') !== 0) {
+        console.log('Cones detected')
+      } else {
+        console.log('No Cones in level')
+      }
+      
     }
   }
 }
