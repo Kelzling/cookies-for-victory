@@ -1,8 +1,8 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 19/04/2018 */
+Conforms to StandardJS 17/05/2018 */
 
-/* global Vec */
+/* global Vec, GameEngine, State */
 
 class Cone {
   constructor (pos, speed) {
@@ -28,8 +28,6 @@ class Cone {
     } else { // hit the cone from the side or below, and therefore died
       return player.die(state)
     }
-    
-
   }
 
   update (time, state) {
