@@ -52,7 +52,7 @@ class State { // eslint-disable-line no-unused-vars
   
   filterActors (type) {
     // returns a filtered list of actors containing only the provided type
-    let filteredActors = this.startActors.filter(a => a.type === type)
+    let filteredActors = this.actors.filter(a => a.type === type)
     return filteredActors
   }
   
