@@ -2,7 +2,7 @@
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
 Conforms to StandardJS 16/05/2018 */
 
-/* global Vec, Lava, Player, Coin, Heart, Goal, Checkpoint, VERBOSE */
+/* global Vec, Lava, Player, Coin, Heart, Goal, Checkpoint, Cone, VERBOSE */
 
 class Level { // eslint-disable-line no-unused-vars
   constructor (plan) {
@@ -57,11 +57,14 @@ class Level { // eslint-disable-line no-unused-vars
     if (this.countActors('player') === 0) {
       console.warn('Critical Error: Level has no Player!') // critical error
       throw new ReferenceError('No Players in level!') // catch the no player problem before level is created
+    } else if (this.countActors('player') > 1) {
+      console.warn('Critical Error: Level has multiple Players!') // different edge case, critical error
+      throw new RangeError('Multiple Players in level!') // catch the multiple-player problem before level is created.
     } else if (VERBOSE) {
       console.log('Player detected')
     }
 
-    console.assert(this.countActors('goal') > 0, 'Warning! This level has no goal!')
+    console.assert(this.countActors('goal') > 0, 'Warning! This level has no goal!') // more efficent way of checking for a goal and returning on an issue
 
     /* if (this.countActors('goal') === 0) { // goal check
         console.warn('Warning! This level has no goal!') // this is a critical error, so the warning comes through irrespective of VERBOSE
