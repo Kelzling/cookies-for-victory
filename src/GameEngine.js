@@ -126,13 +126,13 @@ class GameEngine { // eslint-disable-line no-unused-vars
     // takes the current state, a vector, and the object type as a string
     if (this.backgroundObjects.includes(objectType)) { // is it one of the background objects
       if (objectType !== 'lava') { // lava can also exist as an actor
-        if (state.level.rows[(pos.y + 1)][pos.x] === objectType) {
+        if (state.level.rows[Math.floor(pos.y + 1)][pos.x] === objectType) {
           return true
         } else { // is not above what you're expecting
           return false
         }
       } else { // type you're looking for is lava, this is an exception because it might be an actor also
-        if (state.level.rows[(pos.y + 1)][pos.x] === objectType) {
+        if (state.level.rows[Math.floor((pos.y + 1))][pos.x] === objectType) {
           return true
         }
       }
