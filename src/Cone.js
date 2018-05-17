@@ -34,12 +34,15 @@ class Cone {
     let newPos = this.pos.plus(this.speed.times(time))
     if (!state.level.touches(newPos, this.size, 'wall')) {
       // let edgedPos = (this.speed < 0) ? new Vec(Math.round(this.pos.x), this.pos.y): new Vec(Math.round(this.pos.x), this.pos.y)
-      if (GameEngine.isAbove(state, this.pos, 'wall')) {
+      if (GameEngine.isAbove(state, this.pos, 'wall')) { // if it's above a wall, keep going
         return new Cone(newPos, this.speed)
       }
     }
-    return new Cone(this.pos, this.speed.times(-1)) // this is deliberately not inside an else clause
-  } // the above line needs to occur if __either__ of the logical tests are true. edgedPos is delcared within the if for efficency purposes.
+    return new Cone(this.pos, this.speed.times(-1)) 
+    // this is deliberately not inside an else clause
+    // the above line needs to occur if __either__ of the logical tests are true. edgedPos is delcared within the if for efficency purposes.
+    // for some reason, this code doesn't result in the cone turning around and going the other way
+  } 
 }
 
 
