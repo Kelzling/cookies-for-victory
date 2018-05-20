@@ -26,6 +26,10 @@ class GameEngine { // eslint-disable-line no-unused-vars
   static get jumpSpeed () {
     return 17
   }
+  
+  static get timeLimit() {
+    return 180
+  }
 
   static overlap (actor1, actor2) { // eslint-disable-line no-unused-vars
     return actor1.pos.x + actor1.size.x > actor2.pos.x &&
