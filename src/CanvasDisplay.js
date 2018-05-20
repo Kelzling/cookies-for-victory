@@ -56,7 +56,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
     if (status === 'won') {
       this.cx.fillStyle = 'rgb(68, 191, 255)'
     } else if (status === 'lost' || status === 'dead') {
-      this.cx.fillStyle = 'rgb(44, 136, 214'
+      this.cx.fillStyle = 'rgb(44, 136, 214)'
     } else {
       this.cx.fillStyle = 'rgb(52, 166, 251)'
     }
@@ -113,7 +113,13 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
     this.cx.drawImage(this.playerSprites, tileX, 0, width, height,
                                      x, y, width, height)
     this.cx.restore()
-  };
+  }
+  
+  drawTimer(actor) {
+    this.cx.fillStyle = 'rgb(00, 00, 00)'
+    this.cx.font = '20px "Cute Font"'
+    this.cx.fillText(actor.roundedTimer, 1, 15)
+  }
 
   drawActors (actors) {
     for (let actor of actors) {
@@ -123,6 +129,8 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
       let y = (actor.pos.y - this.viewport.top) * GameEngine.scale
       if (actor.type === 'player') {
         this.drawPlayer(actor, x, y, width, height)
+      } else if (actor.type === 'timer') {
+        this.drawTimer(actor)
       } else {
         // let tileX = (actor.type === 'coin' ? 2 : 1) * GameEngine.scale
         let tileX = 0 // initalize variable
