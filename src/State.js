@@ -18,6 +18,10 @@ class State { // eslint-disable-line no-unused-vars
   get player () {
     return this.actors.find(a => a.type === 'player')
   }
+  
+  get timer () {
+    return this.actors.find(a => a.type === 'timer')
+  }
 
   update (time, keys) {
     let actors = this.actors.map(actor => actor.update(time, this, keys))

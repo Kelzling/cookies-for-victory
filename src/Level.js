@@ -96,5 +96,6 @@ Level.prototype.levelChars = { // eslint-disable-line no-unused-vars
   '|': Lava,
   'v': Lava,
   '!': Goal,
-  '&': Checkpoint
+  '&': Checkpoint,
+  'T': Timer
 }
