@@ -33,9 +33,10 @@ class Cone {
   update (time, state) {
     let newPos = this.pos.plus(this.speed.times(time))
     if (!state.level.touches(newPos, this.size, 'wall')) {
-      // let edgedPos = (this.speed < 0) ? new Vec(Math.round(this.pos.x), this.pos.y): new Vec(Math.round(this.pos.x), this.pos.y)
-      if (GameEngine.isAbove(state, newPos, 'wall')) { // if it's above a wall, keep going
-        console.log('next pos is above wall')
+      let edgedPos = new Vec(newPos.x, newPos.y) // initalize variable
+      edgedPos.x = (this.speed.x < 0) ? edgedPos.x-0.5 : edgedPos.x+0.5 // correct the edge value depending on the direction the cone is traveling in
+      if (GameEngine.isAbove(state, edgedPos, 'wall')) { // if it's above a wall, keep going
+        // console.log('next pos is above wall')
         return new Cone(newPos, this.speed)
       }
     }
