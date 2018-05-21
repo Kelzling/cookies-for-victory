@@ -60,6 +60,13 @@ class Level { // eslint-disable-line no-unused-vars
     } else if (VERBOSE) {
       console.log('Player detected')
     }
+    
+    if (this.countActors('timer') === 0) {
+      console.warn('Critical Error: Level has no Timer!') // critical error
+      throw new ReferenceError('No Timer in level!') // catch the no player problem before level is created
+    } else if (VERBOSE) {
+      console.log('Timer detected')
+    }
 
     console.assert(this.countActors('goal') > 0, 'Warning! This level has no goal!')
 
