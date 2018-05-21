@@ -30,8 +30,14 @@ class Timer {
   }
   
   update (time, state) {
+	// This function is called by State.update, so contains the actions needed to be done each animation frame, which is decrease the timer.
     this.timer -= time
     return this
+  }
+  
+  addTime (time) {
+	// this function is to be called by the bonus time power ups
+	this.timer += time
   }
 }
 

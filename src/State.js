@@ -42,7 +42,7 @@ class State { // eslint-disable-line no-unused-vars
     }
     
     let timer = newState.timer.roundedTimer
-    let timeRemaining = timer >= 0
+    let timeRemaining = timer >= timer.timerMin
     if (!timeRemaining) {
       // if time has run out, lose a life and reset the level
       console.log('timer ran out')

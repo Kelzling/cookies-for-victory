@@ -7,6 +7,7 @@ Conforms to StandardJS 03/05/2018 */
 // constant variables for game functions
 
 class GameEngine { // eslint-disable-line no-unused-vars
+  // Centralised Magic Number Declarations ^_^
   static get scale () {
     return 20
   }
@@ -29,6 +30,10 @@ class GameEngine { // eslint-disable-line no-unused-vars
   
   static get timeLimit() {
     return 180
+  }
+  
+  static get bonusTime() {
+    return 30
   }
 
   static overlap (actor1, actor2) { // eslint-disable-line no-unused-vars
