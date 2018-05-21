@@ -1,6 +1,6 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 17/05/2018 */
+Conforms to StandardJS 21/05/2018 */
 
 /* global Vec, GameEngine, State */
 
@@ -33,18 +33,18 @@ class Cone {
   update (time, state) {
     let newPos = this.pos.plus(this.speed.times(time))
     if (!state.level.touches(newPos, this.size, 'wall')) {
-      // let edgedPos = (this.speed < 0) ? new Vec(Math.round(this.pos.x), this.pos.y): new Vec(Math.round(this.pos.x), this.pos.y)
-      if (GameEngine.isAbove(state, newPos, 'wall')) { // if it's above a wall, keep going
-        console.log('next pos is above wall')
+      let edgedPos = new Vec(newPos.x, newPos.y) // initalize variable
+      edgedPos.x = (this.speed.x < 0) ? edgedPos.x - 0.5 : edgedPos.x + 0.5 // correct the edge value depending on the direction the cone is traveling in
+      if (GameEngine.isAbove(state, edgedPos, 'wall')) { // if it's above a wall, keep going
+        // console.log('next pos is above wall')
         return new Cone(newPos, this.speed)
       }
     }
-    return new Cone(this.pos, this.speed.times(-1)) 
+    return new Cone(this.pos, this.speed.times(-1))
     // this is deliberately not inside an else clause
     // the above line needs to occur if __either__ of the logical tests are true. edgedPos is delcared within the if for efficency purposes.
     // for some reason, this code doesn't result in the cone turning around and going the other way
-  } 
+  }
 }
-
 
 Cone.prototype.size = new Vec(1, 1)
