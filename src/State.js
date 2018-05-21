@@ -40,6 +40,16 @@ class State { // eslint-disable-line no-unused-vars
     if (newState.status !== 'playing') {
       return newState
     }
+    
+    let timer = newState.timer.roundedTimer
+    let timeRemaining = timer >= 0
+    if (!timeRemaining) {
+      // if time has run out, lose a life and reset the level
+      console.log('timer ran out')
+      theInfoBar.looseLife()
+      newState.status = 'restart'
+      return newState
+    }
 
     let player = newState.player
     if (this.level.touches(player.pos, player.size, 'lava')) {

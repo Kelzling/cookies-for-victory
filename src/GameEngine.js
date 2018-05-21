@@ -108,6 +108,9 @@ class GameEngine { // eslint-disable-line no-unused-vars
         // add collected coins to the bank and increment the level
         theInfoBar.bank()
         level++
+      } else if (status === 'restart') {
+        // re enter the loop on the same level
+        continue
       } else if (status === 'skip' && level < plans.length - 1) {
         level++
       } else if (status === 'back' && level > 0) {
