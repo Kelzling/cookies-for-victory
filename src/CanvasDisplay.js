@@ -151,6 +151,12 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
           case 'checkpoint':
             tileX = 5 * GameEngine.scale
             break
+          case 'cone':
+            tileX = 6 * GameEngine.scale
+            break
+          case 'clock':
+            tileX = 7 * GameEngine.scale
+            break
         }
 
         this.cx.drawImage(this.otherSprites,
