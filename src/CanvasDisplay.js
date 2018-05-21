@@ -114,8 +114,8 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
                                      x, y, width, height)
     this.cx.restore()
   }
-  
-  drawTimer(actor) {
+
+  drawTimer (actor) {
     this.cx.fillStyle = 'rgb(00, 00, 00)'
     this.cx.font = '20px "Cute Font"'
     // currently drawing timer in a static location. y is lower than may be expected as it is the location of the text baseline, underneath the text, not the top of the box.

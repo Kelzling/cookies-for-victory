@@ -27,12 +27,12 @@ class GameEngine { // eslint-disable-line no-unused-vars
   static get jumpSpeed () {
     return 17
   }
-  
-  static get timeLimit() {
+
+  static get timeLimit () {
     return 180
   }
-  
-  static get bonusTime() {
+
+  static get bonusTime () {
     return 30
   }
 

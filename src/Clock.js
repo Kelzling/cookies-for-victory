@@ -1,5 +1,7 @@
 /* Created by Kelsey Vavasour and Thomas Baines May 2018
-Conforms to StandardJS xx/05/2018 */
+Conforms to StandardJS 22/05/2018 */
+
+/* global GameEngine Vec State */
 
 class Clock {
   constructor (pos, basePos, wobble) {

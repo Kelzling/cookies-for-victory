@@ -1,6 +1,6 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 09/05/2018 */
+Conforms to StandardJS 22/05/2018 */
 
 /* global overlap */
 
