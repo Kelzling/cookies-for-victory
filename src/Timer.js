@@ -25,7 +25,7 @@ class Timer {
   }
   
   collide (state) {
-    // make it transparent somehow? This may require a new attribute to be passed to display. May need to check collision in update so it can be turned off once it's done
+    // The clock does not interact with the player at all. Also the actual object is invisible nowhere near the timer is actually drawn, it should be impossible for it to be collided with.
     return state
   }
   
