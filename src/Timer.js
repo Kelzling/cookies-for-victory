@@ -4,11 +4,10 @@ Conforms to StandardJS xx/05/2018 */
 /* global GameEngine */
 
 class Timer {
-  constructor (pos, timerMax, timerMin, timer) {
+  constructor (pos, timerMin, timerStart) {
     this.pos = pos
-    this.timerMax = timerMax
     this.timerMin = timerMin
-    this.timer = timer
+    this.timer = timerStart
   }
   
   get type () {
@@ -21,7 +20,7 @@ class Timer {
   }
   
   static create (pos) {
-    return new Timer(pos, GameEngine.timeLimit, 0, GameEngine.timeLimit)
+    return new Timer(pos, 0, GameEngine.timeLimit)
   }
   
   collide (state) {
