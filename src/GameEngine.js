@@ -7,6 +7,7 @@ Conforms to StandardJS 23/05/2018 */
 // constant variables for game functions
 
 class GameEngine { // eslint-disable-line no-unused-vars
+  // Centralised Magic Number Declarations ^_^
   static get scale () {
     return 20
   }
@@ -26,7 +27,15 @@ class GameEngine { // eslint-disable-line no-unused-vars
   static get jumpSpeed () {
     return 17
   }
+  
+  static get timeLimit () {
+    return 180
+  }
 
+  static get bonusTime () {
+    return 30
+  }
+  
   static get backgroundObjects () {
     return ['empty', 'lava', 'wall']
   }
@@ -108,6 +117,9 @@ class GameEngine { // eslint-disable-line no-unused-vars
         // add collected coins to the bank and increment the level
         theInfoBar.bank()
         level++
+      } else if (status === 'restart') {
+        // re enter the loop on the same level
+        continue
       } else if (status === 'skip' && level < plans.length - 1) {
         level++
       } else if (status === 'back' && level > 0) {

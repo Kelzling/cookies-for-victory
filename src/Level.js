@@ -1,8 +1,8 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 17/05/2018 */
+Conforms to StandardJS 22/05/2018 */
 
-/* global Vec, Lava, Player, Coin, Heart, Goal, Checkpoint, Cone, VERBOSE */
+/* global Vec, Lava, Player, Coin, Heart, Goal, Checkpoint, VERBOSE Timer Clock */
 
 class Level { // eslint-disable-line no-unused-vars
   constructor (plan) {
@@ -65,12 +65,15 @@ class Level { // eslint-disable-line no-unused-vars
     }
 
     console.assert(this.countActors('goal') > 0, 'Warning! This level has no goal!') // more efficent way of checking for a goal and returning on an issue
-
-    /* if (this.countActors('goal') === 0) { // goal check
-        console.warn('Warning! This level has no goal!') // this is a critical error, so the warning comes through irrespective of VERBOSE
+	
+    if (this.countActors('timer') === 0) {
+      console.warn('Critical Error: Level has no Timer!') // critical error
+      console.warn('Creating new timer')
+      this.startActors.push(Timer.create(new Vec(this.rows[0].length-1, 0)))
+      // throw new ReferenceError('No Timer in level!') // catch the no player problem before level is created
     } else if (VERBOSE) {
-        console.log('Goal(s) detected')
-    } */
+      console.log('Timer detected')
+    }
 
     if (VERBOSE) { // other checks, these are only run in verbose mode
       if (this.countActors('coin') !== 0) {
@@ -107,5 +110,7 @@ Level.prototype.levelChars = { // eslint-disable-line no-unused-vars
   'v': Lava,
   '!': Goal,
   '&': Checkpoint,
-  'A': Cone
+  'A': Cone,
+  'T': Timer,
+  'c': Clock
 }
