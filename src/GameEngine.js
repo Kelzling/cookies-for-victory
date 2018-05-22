@@ -126,7 +126,7 @@ class GameEngine { // eslint-disable-line no-unused-vars
     // takes the current state, a vector, and the object type as a string
     if (this.backgroundObjects.includes(objectType)) { // is it one of the background objects
       if (objectType !== 'lava') { // lava can also exist as an actor
-        if (state.level.rows[Math.round(pos.y + 1)][Math.round(pos.x)] === objectType) {
+        if (state.level.rows[Math.round(pos.y + 1)][Math.round(pos.x)] === objectType) { // had to round x and y values in order to actually access the array elements
           return true
         } else { // is not above what you're expecting
           return false
