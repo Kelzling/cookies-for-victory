@@ -147,9 +147,13 @@ class GameEngine { // eslint-disable-line no-unused-vars
             ) { // fuzzy check to see if the given position is generally above the object type - levels of tolerance are needed
             return true
           } else {
-            return false
+            // this is not the actor you are looking for
+            ;
           }
         }
+        return false
+        /* if you completely execute the for loop, and none of the actors of the provided type are below the position
+          then the Position is not above the actor type provided */
       } else { // actor you're looking for does not exist in level, therefore the position can't be above it
         console.warn(`isAbove was called on ${objectType}. There are no instances of this object in the level!`)
         return false
