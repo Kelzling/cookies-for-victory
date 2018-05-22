@@ -63,7 +63,9 @@ class Level { // eslint-disable-line no-unused-vars
 
     if (this.countActors('timer') === 0) {
       console.warn('Critical Error: Level has no Timer!') // critical error
-      throw new ReferenceError('No Timer in level!') // catch the no player problem before level is created
+      console.warn('Creating new timer')
+      this.startActors.push(Timer.create(new Vec(this.rows[0].length-1, 0)))
+      // throw new ReferenceError('No Timer in level!') // catch the no player problem before level is created
     } else if (VERBOSE) {
       console.log('Timer detected')
     }
