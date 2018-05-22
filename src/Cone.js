@@ -14,7 +14,7 @@ class Cone {
     return 'cone'
   }
 
-  static create (pos, ch) {
+  static create (pos) {
     return new Cone(pos, new Vec(2, 0))
   }
 
