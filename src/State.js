@@ -42,10 +42,12 @@ class State { // eslint-disable-line no-unused-vars
     }
     
     let timer = newState.timer
-    let timeRemaining = timer.roundedTimer >= timer.timerMin
+    let timeRemaining = timer.roundedTimer >= timer.timerMin // this is a boolean to indicate if there is time remaining or not
     if (!timeRemaining) {
       // if time has run out, lose a life and reset the level
-      console.log('timer ran out')
+      if (VERBOSE) {
+        console.log('timer ran out')
+      }
       theInfoBar.looseLife()
       newState.status = 'restart'
       return newState
