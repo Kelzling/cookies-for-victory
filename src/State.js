@@ -1,6 +1,6 @@
 /* Original Code from Eloquent Javascript v3 by Marijin Haverbeke
 Refactored and Modified by Kelsey Vavasour and Thomas Baines April 2018
-Conforms to StandardJS 09/05/2018 */
+Conforms to StandardJS 22/05/2018 */
 
 /* global overlap */
 
@@ -18,6 +18,10 @@ class State { // eslint-disable-line no-unused-vars
   get player () {
     return this.actors.find(a => a.type === 'player')
   }
+  
+  get timer () {
+    return this.actors.find(a => a.type === 'timer')
+  }
 
   update (time, keys) {
     let actors = this.actors.map(actor => actor.update(time, this, keys))
@@ -34,6 +38,18 @@ class State { // eslint-disable-line no-unused-vars
     }
     
     if (newState.status !== 'playing') {
+      return newState
+    }
+    
+    let timer = newState.timer
+    let isTimeRemaining = timer.roundedTimer >= timer.timerMin // this is a boolean to indicate if there is time remaining or not
+    if (!isTimeRemaining) {
+      // if time has run out, lose a life and reset the level
+      if (VERBOSE) {
+        console.log('timer ran out')
+      }
+      theInfoBar.looseLife()
+      newState.status = 'restart'
       return newState
     }
 
