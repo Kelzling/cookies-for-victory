@@ -136,7 +136,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
           case 'heart':
             tileX = 3 * GameEngine.scale
             break
-          case 'cone': // THIS IS A PLACEHOLDER. DO NOT LEAVE THIS AS IS. CHANGE TO NEW TEXTURE ASAP
+          case 'cone': 
             tileX = 6 * GameEngine.scale
             break
           case 'goal':
