@@ -118,6 +118,20 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
                                      x, y, drawWidth, height)
     this.cx.restore()
   }
+  
+  drawCone (cone, x, y, width, height) {
+    let flippedCone = cone.speed.x < 0
+    
+    let tile = Math.floor(Date.now() / 120) % 4
+    
+    this.cx.save()
+    if (flippedCone) {
+      this.flipHorizontally(this.cx, x + width / 2)
+    }
+    let tileX = tile * width
+    this.cx.drawImage(this.evilConeSprites, tileX, 0, width, height, x, y, width, height)
+    this.cx.restore()
+  }
 
   drawTimer (actor) {
     this.cx.fillStyle = 'rgb(00, 00, 00)'
@@ -136,6 +150,8 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
         this.drawPlayer(actor, x, y, width, height, status)
       } else if (actor.type === 'timer') {
         this.drawTimer(actor)
+      } else if (actor.type === 'cone') {
+        this.drawCone(actor, x, y, width, height)
       } else {
         // let tileX = (actor.type === 'coin' ? 2 : 1) * GameEngine.scale
         let tileX = 0 // initalize variable
@@ -148,9 +164,6 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
             break
           case 'heart':
             tileX = 3 * GameEngine.scale
-            break
-          case 'cone': 
-            tileX = 6 * GameEngine.scale
             break
           case 'goal':
             tileX = 4 * GameEngine.scale
@@ -179,3 +192,6 @@ CanvasDisplay.prototype.otherSprites.src = 'img/sprites_20.png'
 
 CanvasDisplay.prototype.playerSprites = document.createElement('img')
 CanvasDisplay.prototype.playerSprites.src = 'img/wizard_sprites_grey_30.png'
+
+CanvasDisplay.prototype.evilConeSprites = document.createElement('img')
+CanvasDisplay.prototype.evilConeSprites.src = 'img/evil_road_cone_sprites_20.png'
