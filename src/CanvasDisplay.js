@@ -31,7 +31,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
     this.updateViewport(state)
     this.clearDisplay(state.status)
     this.drawBackground(state.level)
-    this.drawActors(state.actors)
+    this.drawActors(state.actors, state.status)
   }
 
   updateViewport (state) {
@@ -91,7 +91,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
   }
 
   drawPlayer (player, x, y,
-                        width, height) {
+                        width, height, status) {
     width += this.playerXOverlap * 2
     x -= this.playerXOverlap
     if (player.speed.x !== 0) {
@@ -101,6 +101,8 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
     let tile = 6
     if (player.speed.y !== 0) {
       tile = 7
+    } else if (status === 'dead' || status === 'lost') {
+      tile = 8
     } else if (player.speed.x !== 0) {
       tile = Math.floor(Date.now() / 90) % 6
     }
@@ -110,6 +112,9 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
       this.flipHorizontally(this.cx, x + width / 2)
     }
     let tileX = tile * width
+    if (status === 'dead' || status === 'lost') {
+      width = 34
+    }
     this.cx.drawImage(this.playerSprites, tileX, 0, width, height,
                                      x, y, width, height)
     this.cx.restore()
@@ -122,14 +127,14 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
     this.cx.fillText(actor.roundedTimer, 1, 15)
   }
 
-  drawActors (actors) {
+  drawActors (actors, status) {
     for (let actor of actors) {
       let width = actor.size.x * GameEngine.scale
       let height = actor.size.y * GameEngine.scale
       let x = (actor.pos.x - this.viewport.left) * GameEngine.scale
       let y = (actor.pos.y - this.viewport.top) * GameEngine.scale
       if (actor.type === 'player') {
-        this.drawPlayer(actor, x, y, width, height)
+        this.drawPlayer(actor, x, y, width, height, status)
       } else if (actor.type === 'timer') {
         this.drawTimer(actor)
       } else {
