@@ -93,6 +93,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
   drawPlayer (player, x, y,
                         width, height, status) {
     width += this.playerXOverlap * 2
+    let drawWidth = width
     x -= this.playerXOverlap
     if (player.speed.x !== 0) {
       this.flipPlayer = player.speed.x < 0
@@ -103,6 +104,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
       tile = 7
     } else if (status === 'dead' || status === 'lost') {
       tile = 8
+      drawWidth = 34
     } else if (player.speed.x !== 0) {
       tile = Math.floor(Date.now() / 90) % 6
     }
@@ -112,11 +114,8 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
       this.flipHorizontally(this.cx, x + width / 2)
     }
     let tileX = tile * width
-    if (status === 'dead' || status === 'lost') {
-      width = 34
-    }
-    this.cx.drawImage(this.playerSprites, tileX, 0, width, height,
-                                     x, y, width, height)
+    this.cx.drawImage(this.playerSprites, tileX, 0, drawWidth, height,
+                                     x, y, drawWidth, height)
     this.cx.restore()
   }
 
