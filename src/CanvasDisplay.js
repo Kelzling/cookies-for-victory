@@ -6,7 +6,7 @@ Conforms to StandardJS 17/05/2018 */
 
 class CanvasDisplay { // eslint-disable-line no-unused-vars
   constructor (parent, level) {
-    this.playerXOverlap = 1.8
+    this.playerXOverlap = 3.8
     this.canvas = document.createElement('canvas')
     this.canvas.width = Math.min(600, level.width * GameEngine.scale)
     this.canvas.height = Math.min(450, level.height * GameEngine.scale)

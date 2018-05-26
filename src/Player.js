@@ -71,4 +71,4 @@ class Player {
   }
 }
 
-Player.prototype.size = new Vec(1, 1.5)
+Player.prototype.size = new Vec(.8, 1.5)
