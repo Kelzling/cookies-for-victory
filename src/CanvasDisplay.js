@@ -6,7 +6,7 @@ Conforms to StandardJS 17/05/2018 */
 
 class CanvasDisplay { // eslint-disable-line no-unused-vars
   constructor (parent, level) {
-    this.playerXOverlap = 4
+    this.playerXOverlap = 1.8
     this.canvas = document.createElement('canvas')
     this.canvas.width = Math.min(600, level.width * GameEngine.scale)
     this.canvas.height = Math.min(450, level.height * GameEngine.scale)
@@ -98,11 +98,11 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
       this.flipPlayer = player.speed.x < 0
     }
 
-    let tile = 8
+    let tile = 6
     if (player.speed.y !== 0) {
-      tile = 9
+      tile = 7
     } else if (player.speed.x !== 0) {
-      tile = Math.floor(Date.now() / 60) % 8
+      tile = Math.floor(Date.now() / 90) % 6
     }
 
     this.cx.save()
@@ -174,4 +174,4 @@ CanvasDisplay.prototype.otherSprites = document.createElement('img')
 CanvasDisplay.prototype.otherSprites.src = 'img/sprites_20.png'
 
 CanvasDisplay.prototype.playerSprites = document.createElement('img')
-CanvasDisplay.prototype.playerSprites.src = 'img/player_30.png'
+CanvasDisplay.prototype.playerSprites.src = 'img/wizard_sprites_grey_30.png'
