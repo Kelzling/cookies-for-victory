@@ -82,7 +82,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
         if (tile === 'empty') continue
         let screenX = (x - left) * GameEngine.scale
         let screenY = (y - top) * GameEngine.scale
-        let tileX = tile === 'lava' ? GameEngine.scale : 0
+        let tileX = tile === 'lava' ? (8 * GameEngine.scale) : 0
         this.cx.drawImage(this.otherSprites,
                           tileX, 0, GameEngine.scale, GameEngine.scale,
                           screenX, screenY, GameEngine.scale, GameEngine.scale)
@@ -157,7 +157,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
         let tileX = 0 // initalize variable
         switch (actor.type) { // select correct displacement to load sprite for the actor.
           case 'lava':
-            tileX = 1 * GameEngine.scale
+            tileX = 8 * GameEngine.scale
             break
           case 'coin':
             tileX = 2 * GameEngine.scale
