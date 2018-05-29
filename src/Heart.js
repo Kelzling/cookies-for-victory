@@ -20,10 +20,13 @@ class Heart {
   }
 
   collide (state) {
-    theInfoBar.addLife()
-    let filtered = state.actors.filter(a => a !== this)
-    let status = state.status
-    return new State(state.level, filtered, status)
+    if(theInfoBar.addLife()) {
+      let filtered = state.actors.filter(a => a !== this)
+      let status = state.status
+      return new State(state.level, filtered, status)
+    } else {
+      return state
+    }
   }
 
   update (time) {

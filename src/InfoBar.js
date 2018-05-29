@@ -102,11 +102,13 @@ class InfoBar { // eslint-disable-line no-unused-vars
       }
       this.lives++
       this.display()
+      return true
     } else {
       // throw new RangeError('Cannot have more than five lives') // this is bad
       if (VERBOSE) {
         console.warn('Too many hearts! Heart not added.')
       }
+      return false
     }
   }
 
