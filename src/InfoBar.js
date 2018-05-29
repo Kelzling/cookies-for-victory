@@ -62,6 +62,14 @@ class InfoBar { // eslint-disable-line no-unused-vars
       this.display()
     }
   }
+  
+  addLevelCoins(numCoins) {
+    if (VERBOSE) {
+      console.log(`Coin total updated, increased by {numCoins}`)
+    }
+    this.levelCoins = [this.levelCoins[0], this.levelCoins[1]+numCoins]
+    this.display()
+  }
 
   bank () {
     this.coins += this.levelCoins[0]

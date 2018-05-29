@@ -24,7 +24,11 @@ class Cone {
     if (GameEngine.isAbove(state, player.pos, this.type)) { // player hit the cone from above
       let filtered = state.actors.filter(a => a !== this)
       let status = state.status
-      return new State(state.level, filtered, status)
+      
+      filtered.push(Coin.create(this.pos)) // create a coin where the cone was, to add to the number of coins in the level
+      let newState = new State(state.level, filtered, status)
+      theInfoBar.addLevelCoins(1)
+      return newState
     } else { // hit the cone from the side or below, and therefore died
       return player.die(state)
     }
