@@ -62,6 +62,14 @@ class InfoBar { // eslint-disable-line no-unused-vars
       this.display()
     }
   }
+  
+  addLevelCoins(numCoins) {
+    if (VERBOSE) {
+      console.log(`Coin total updated, increased by {numCoins}`)
+    }
+    this.levelCoins = [this.levelCoins[0], this.levelCoins[1]+numCoins]
+    this.display()
+  }
 
   bank () {
     this.coins += this.levelCoins[0]
@@ -102,11 +110,13 @@ class InfoBar { // eslint-disable-line no-unused-vars
       }
       this.lives++
       this.display()
+      return true
     } else {
       // throw new RangeError('Cannot have more than five lives') // this is bad
       if (VERBOSE) {
         console.warn('Too many hearts! Heart not added.')
       }
+      return false
     }
   }
 

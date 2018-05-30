@@ -6,7 +6,7 @@ Conforms to StandardJS 17/05/2018 */
 
 class CanvasDisplay { // eslint-disable-line no-unused-vars
   constructor (parent, level) {
-    this.playerXOverlap = 4
+    this.playerXOverlap = 3.8
     this.canvas = document.createElement('canvas')
     this.canvas.width = Math.min(600, level.width * GameEngine.scale)
     this.canvas.height = Math.min(450, level.height * GameEngine.scale)
@@ -31,7 +31,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
     this.updateViewport(state)
     this.clearDisplay(state.status)
     this.drawBackground(state.level)
-    this.drawActors(state.actors)
+    this.drawActors(state.actors, state.status)
   }
 
   updateViewport (state) {
@@ -82,7 +82,7 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
         if (tile === 'empty') continue
         let screenX = (x - left) * GameEngine.scale
         let screenY = (y - top) * GameEngine.scale
-        let tileX = tile === 'lava' ? GameEngine.scale : 0
+        let tileX = tile === 'lava' ? (8 * GameEngine.scale) : 0
         this.cx.drawImage(this.otherSprites,
                           tileX, 0, GameEngine.scale, GameEngine.scale,
                           screenX, screenY, GameEngine.scale, GameEngine.scale)
@@ -91,18 +91,22 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
   }
 
   drawPlayer (player, x, y,
-                        width, height) {
+                        width, height, status) {
     width += this.playerXOverlap * 2
+    let drawWidth = width
     x -= this.playerXOverlap
     if (player.speed.x !== 0) {
       this.flipPlayer = player.speed.x < 0
     }
 
-    let tile = 8
+    let tile = 6
     if (player.speed.y !== 0) {
-      tile = 9
+      tile = 7
+    } else if (status === 'dead' || status === 'lost') {
+      tile = 8
+      drawWidth = 34
     } else if (player.speed.x !== 0) {
-      tile = Math.floor(Date.now() / 60) % 8
+      tile = Math.floor(Date.now() / 90) % 6
     }
 
     this.cx.save()
@@ -110,8 +114,22 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
       this.flipHorizontally(this.cx, x + width / 2)
     }
     let tileX = tile * width
-    this.cx.drawImage(this.playerSprites, tileX, 0, width, height,
-                                     x, y, width, height)
+    this.cx.drawImage(this.playerSprites, tileX, 0, drawWidth, height,
+                                     x, y, drawWidth, height)
+    this.cx.restore()
+  }
+  
+  drawCone (cone, x, y, width, height) {
+    let flippedCone = cone.speed.x < 0
+    
+    let tile = Math.floor(Date.now() / 120) % 4
+    
+    this.cx.save()
+    if (flippedCone) {
+      this.flipHorizontally(this.cx, x + width / 2)
+    }
+    let tileX = tile * width
+    this.cx.drawImage(this.evilConeSprites, tileX, 0, width, height, x, y, width, height)
     this.cx.restore()
   }
 
@@ -122,31 +140,30 @@ class CanvasDisplay { // eslint-disable-line no-unused-vars
     this.cx.fillText(actor.roundedTimer, 1, 15)
   }
 
-  drawActors (actors) {
+  drawActors (actors, status) {
     for (let actor of actors) {
       let width = actor.size.x * GameEngine.scale
       let height = actor.size.y * GameEngine.scale
       let x = (actor.pos.x - this.viewport.left) * GameEngine.scale
       let y = (actor.pos.y - this.viewport.top) * GameEngine.scale
       if (actor.type === 'player') {
-        this.drawPlayer(actor, x, y, width, height)
+        this.drawPlayer(actor, x, y, width, height, status)
       } else if (actor.type === 'timer') {
         this.drawTimer(actor)
+      } else if (actor.type === 'cone') {
+        this.drawCone(actor, x, y, width, height)
       } else {
         // let tileX = (actor.type === 'coin' ? 2 : 1) * GameEngine.scale
         let tileX = 0 // initalize variable
         switch (actor.type) { // select correct displacement to load sprite for the actor.
           case 'lava':
-            tileX = 1 * GameEngine.scale
+            tileX = 8 * GameEngine.scale
             break
           case 'coin':
             tileX = 2 * GameEngine.scale
             break
           case 'heart':
             tileX = 3 * GameEngine.scale
-            break
-          case 'cone': 
-            tileX = 6 * GameEngine.scale
             break
           case 'goal':
             tileX = 4 * GameEngine.scale
@@ -174,4 +191,7 @@ CanvasDisplay.prototype.otherSprites = document.createElement('img')
 CanvasDisplay.prototype.otherSprites.src = 'img/sprites_20.png'
 
 CanvasDisplay.prototype.playerSprites = document.createElement('img')
-CanvasDisplay.prototype.playerSprites.src = 'img/player_30.png'
+CanvasDisplay.prototype.playerSprites.src = 'img/wizard_sprites_grey_30.png'
+
+CanvasDisplay.prototype.evilConeSprites = document.createElement('img')
+CanvasDisplay.prototype.evilConeSprites.src = 'img/evil_road_cone_sprites_20.png'
